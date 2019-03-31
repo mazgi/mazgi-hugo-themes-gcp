@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mazgi/mazgi-hugo-themes-gcp/issues"
   },
-  "homepage": "https://github.com/mazgi/mazgi-hugo-themes-gcp#readme"
+  "homepage": "https://github.com/mazgi/mazgi-hugo-themes-gcp#readme",
+  "dependencies": {
+    "firebase-tools": "^6.5.0"
+  }
 }
