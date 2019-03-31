@@ -1,0 +1,50 @@
+defaults: &defaults
+  docker:
+    - image: mazgi/hugo-static-website:hugo-0.54-2019.03.0
+
+version: 2
+jobs:
+  deploy_to_firebase:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: git submodule update --init
+      - run:
+          name: Checkout hidden themes
+          command: |
+            for repo in ${HIDDEN_THEME_REPOS}
+            do
+              echo $repo
+              theme=${repo##*/}
+              theme=${theme##hugo-theme-}
+              theme=${theme##hugo-}
+              theme=${theme%%.*}
+              git clone "${repo}" ${theme}
+            done
+          working_directory: hugo-themes
+      - run:
+          name: Build with specific configurations for publishing
+          command: |
+            for theme in $(ls -1)
+            do
+              echo "[$theme]"
+              sed -i '1ipublishDir = "public/'${theme}'"' ${theme}/exampleSite/config.toml
+              sed -ie '/googleAnalytics/Id' ${theme}/exampleSite/config.toml
+              sed -i '1igoogleAnalytics = "'${GOOGLE_ANALYTICS_TRACKING_ID}'"' ${theme}/exampleSite/config.toml
+              (cd ${theme}/exampleSite && hugo --baseURL="https://${GCLOUD_PROJECT}.firebaseapp.com/${theme}" --themesDir="../..")
+              mv -v ${theme}/exampleSite/public/${theme} ../public/
+            done
+          working_directory: hugo-themes
+      - run: ls -l public
+      - run:
+          name: Deploy to Firebase
+          command: firebase deploy --project="${GCLOUD_PROJECT}" --token="${FIREBASE_TOKEN}"
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - deploy_to_firebase:
+          filters:
+            branches:
+              only: master
