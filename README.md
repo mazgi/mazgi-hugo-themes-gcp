@@ -1,0 +1,1 @@
+# mazgi-hugo-themes-gcp
