@@ -1,0 +1,19 @@
+{
+  "name": "mazgi-hugo-themes-gcp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mazgi/mazgi-hugo-themes-gcp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mazgi/mazgi-hugo-themes-gcp/issues"
+  },
+  "homepage": "https://github.com/mazgi/mazgi-hugo-themes-gcp#readme"
+}
