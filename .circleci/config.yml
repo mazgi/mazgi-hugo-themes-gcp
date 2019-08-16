@@ -1,6 +1,6 @@
 defaults: &defaults
   docker:
-    - image: mazgi/hugo-static-website:hugo-0.54-2019.03.0
+    - image: mazgi/hugo-static-website:hugo-0.57-2019.08.2
 
 version: 2
 jobs:
