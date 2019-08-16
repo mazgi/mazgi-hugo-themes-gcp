@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/mazgi/mazgi-hugo-themes-gcp#readme",
   "dependencies": {
-    "firebase-tools": "^6.5.0"
+    "firebase-tools": "^6.12.0"
   }
 }
